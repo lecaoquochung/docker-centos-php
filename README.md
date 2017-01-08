@@ -19,16 +19,20 @@
 ```
 
 ## TEST
-- Access http://docker.dev
+- Access http://docker.dev/php
 
 ## DEVELOPING WITH REAL PHP PROJECT
 - Clone this repo inside PHP project for update docker and its dependencies 
 - Copy all file & directory in this repo to the same path with your project
+```
+
+```
 - Use below command to get it start
 ```
 ./docker.sh build
 ./docker.sh up
 ./docker.sh down
+./docker.sh latest
 ```
 
 ## CONTRIBUTE
