@@ -15,7 +15,7 @@ case $1 in
             build   - Docker compose build \n \
             log     - Check service logs \n \
             restart - Restart services \n \
-            update  - Update docker and its dependencies \n
+            latest  - Update docker and its dependencies \n
         "
         ;;
     ps)
@@ -50,14 +50,14 @@ case $1 in
         # Restart services
         (docker-compose restart)
         ;;
-    #update)
-        # Update docker & its dependencies
-        # TODO
-        #(docker-compose ...)
-        #;;
+    latest)
+        # Update docker & its dependencies to the latest version
+        LATEST_DOCKER="cp -uvrf /var/www/html/docker/docker-centos6-php/* /var/www/html/docker/"
+        (docker-compose run server bin/bash -c "$LATEST_DOCKER")
+        ;;
     *)
         echo "unknown command"
         echo "Usage:"
-        echo "./docker.sh [ps|up|down|db|ssh|build|log|restart]"
+        echo "./docker.sh [ps|up|down|db|ssh|build|log|restart|latest]"
         ;;
 esac
