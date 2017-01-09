@@ -1,17 +1,25 @@
 # DOCKER for LOCAL PROJECT with CENTOS & PHP
-- Docker CentOS 6 & PHP
+- Docker CentOS 6 & PHP (DOCKERCENTOS6PHP)
 - Github 
 
 ## DEPENDENCIES
 - Centos 6.x
 - PHP 5.6.x
-- MySQL 5.6
+- MySQL 5.6 (DOCKERCENTOS6PHP_MYSQL_1)
 - CakePHP 2x & 3x for db migration
 ```
 # Download composer
 curl -s https://getcomposer.org/installer | php
+```
+- ENV
+```
+getenv('CHIRYOKAX_MYSQL_1_PORT_3306_TCP_ADDR');
+getenv('MYSQL_DATABASE');
+getenv('MYSQL_USER');
+getenv('MYSQL_PASSWORD');
+```
 
-# CakePHp 2x
+## CakePHP 2x
 ```
 #  composer.json
 {
@@ -33,7 +41,8 @@ Path: /var/www/html/docker/docker/db/schema
 ```
 
 
-# CakePHP latest
+## CakePHP latest
+```
 composer.phar create-project --prefer-dist cakephp/app cakephp
 ```
 
@@ -50,14 +59,20 @@ composer.phar create-project --prefer-dist cakephp/app cakephp
 
 ## TEST
 - Access http://docker.dev/php
+- PHP MySQLi connect http://docker.dev/php/mysql/mysqli.php
+- PHP PDO connect http://docker.dev/php/mysql/pdo.php
 
 ## DB MIGRATION
 - CakePHP is used for db migrations
 ```
 # Init default db or project db
+
+# Schema 
+Console/cake schema dump --write database.sql
+Console/cake schema generate -f
 ```
 
-## DEVELOPING WITH REAL PHP PROJECT
+## DEVELOPE WITH REAL PHP PROJECT
 - Clone this repo inside PHP project for update docker and its dependencies 
 - Copy all file & directory in this repo to the same path with your project
 ```
@@ -68,11 +83,11 @@ composer.phar create-project --prefer-dist cakephp/app cakephp
 ./docker.sh build
 ./docker.sh up
 ./docker.sh down
-./docker.sh latest
+./docker.sh latest // Pleae run pull request of master branch before run this command for latest version
 ```
 
 ## CONTRIBUTE
-- Please make PR to this repo
+- Any PR to this repo is welcome
 - Email me if you have any question lecaoquochung@gmail.com
 
 ## REFERENCE

@@ -24,7 +24,6 @@ RUN sed -i -e "s|^;date.timezone =.*$|date.timezone = Asia/Tokyo|" /etc/php.ini
 
 # PROJECT
 
-
 # Default Docker Dev
 COPY httpd.conf /etc/httpd/conf.d/virtual.conf
 
