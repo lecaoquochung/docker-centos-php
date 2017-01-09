@@ -1,5 +1,6 @@
 FROM centos:6
 
+# ENV
 RUN rpm -ivh http://dl.fedoraproject.org/pub/epel/6/i386/epel-release-6-8.noarch.rpm
 RUN rpm -ivh http://rpms.famillecollet.com/enterprise/remi-release-6.rpm
 RUN yum update -y
@@ -21,10 +22,16 @@ RUN yum install --enablerepo=epel,remi-php56,remi -y \
                               
 RUN sed -i -e "s|^;date.timezone =.*$|date.timezone = Asia/Tokyo|" /etc/php.ini
 
+# PROJECT
+
+
 # Default Docker Dev
 COPY httpd.conf /etc/httpd/conf.d/virtual.conf
 
-# SSL
+# SSL 
+# Only use this with local Docker
+# Please don't use default private key for production server
+# TODO Config SSL for local Docker
 COPY ssl/ca.crt /etc/pki/tls/certs/ca.crt
 COPY ssl/ca.key /etc/pki/tls/private/ca.key
 RUN chmod 500 /etc/pki/tls/certs/ca.crt
