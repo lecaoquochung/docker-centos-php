@@ -36,7 +36,8 @@ case $1 in
         ;;
     ssh)
         # Connect to SSH
-        (docker exec -it dockercentos6php_server_1 bash)
+        readonly PROJECT_NAME=${PWD##*/}
+        (docker exec -it ${PROJECT_NAME}_server_1 bash)
         ;;
     build)
         # Build image in Dockerfile
