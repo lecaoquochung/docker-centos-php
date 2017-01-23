@@ -51,8 +51,8 @@ Console/cake schema generate -f
 - Copy docker.sh file in this repo to the same path with your project
 ```
 # php-project/
-git clone git@github.com:lecaoquochung/docker-centos6-php.git
-cp -vrf docker-centos6-php/* ./
+git clone git@github.com:lecaoquochung/docker-centos-php.git
+cp -vrf docker-centos-php/* ./
 ```
 
 - Use below command to start the docker with your project
