@@ -53,7 +53,7 @@ case $1 in
         ;;
     latest)
         # Update docker & its dependencies to the latest version
-        LATEST_DOCKER="cp -uvrf /var/www/html/docker/docker-centos-php/* /var/www/html/docker/"
+        LATEST_DOCKER="cp -uvrf !(README.md|/var/www/html/docker/docker-centos-php) /var/www/html/docker/"
         (docker-compose up -d)
         (docker-compose run server bin/bash -c "$LATEST_DOCKER")
         ;;

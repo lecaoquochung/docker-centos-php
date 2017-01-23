@@ -18,11 +18,12 @@ RUN yum install --enablerepo=epel,remi-php56,remi -y \
                               mysql-server \
                               phpmyadmin \
                               mod_ssl openssl
-                              
+
 RUN sed -i -e "s|^;date.timezone =.*$|date.timezone = Asia/Tokyo|" /etc/php.ini
 
 # Default Docker Dev
 COPY httpd.conf /etc/httpd/conf.d/virtual.conf
+RUN shopt -s extglob
 
 # SSL
 COPY ssl/ca.crt /etc/pki/tls/certs/ca.crt
