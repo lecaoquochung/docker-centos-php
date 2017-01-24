@@ -1,5 +1,5 @@
-# DOCKER for LOCAL PROJECT with CENTOS & PHP
-- Docker CentOS 6 & PHP (DOCKERCENTOS6PHP)
+# DOCKER CENTOS for LOCAL PROJECT
+- Docker CentOS (DOCKERCENTOS)
 - Github
 
 ## DEPENDENCIES
@@ -15,7 +15,7 @@ curl -s https://getcomposer.org/installer | php
 ## ENV
 - Default environment
 ```
-getenv('DOCKERCENTOS6PHP_MYSQL_1_PORT_3306_TCP_ADDR');
+getenv('DOCKERCENTOS_MYSQL_1_PORT_3306_TCP_ADDR');
 getenv('MYSQL_DATABASE');
 getenv('MYSQL_USER');
 getenv('MYSQL_PASSWORD');
@@ -29,8 +29,8 @@ getenv('MYSQL_PASSWORD');
 
 - Init Docker
 ```
-./dockercentosphp.sh build
-./dockercentosphp.sh up
+./dockercentos.sh build
+./dockercentos.sh up
 ```
 
 ## TEST
@@ -47,20 +47,20 @@ Console/cake schema generate -f
 ```
 
 ## DEVELOPE WITH REAL PHP PROJECT
-- Clone this repo inside PHP project for update docker and its dependencies
-- Copy docker.sh file in this repo to the same path with your project
+- Clone this repo inside project source code
+- Copy dockercentos.sh file in this repo to the same path with your project
 ```
-# php-project/
-git clone git@github.com:lecaoquochung/docker-centos-php.git
-cp -vrf docker-centos-php/* ./
+# sammple-project/
+git clone git@github.com:lecaoquochung/docker-centos.git
+cp -vrf !(README.md|docker-centos) ./
 ```
 
 - Use below command to start the docker with your project
 ```
-./dockercentosphp.sh build
-./dockercentosphp.sh up
-./dockercentosphp.sh down
-./dockercentosphp.sh latest // Latest version of DOCKER-CENTO6-PHP
+./dockercentos.sh build
+./dockercentos.sh up
+./dockercentos.sh down
+./dockercentos.sh latest // Latest version of DOCKER-CENTO6-PHP
 ```
 
 ## CONTRIBUTE
@@ -69,4 +69,4 @@ cp -vrf docker-centos-php/* ./
 
 ## REFERENCE
 - CakePHP 2x installation https://book.cakephp.org/2.0/en/installation/advanced-installation.html
-- Docker images, containers, volume remove https://www.digitalocean.com/community/tutorials/how-to-remove-docker-images-containers-and-volumes
+- Docker CentOS https://docs.docker.com/engine/installation/linux/centos/

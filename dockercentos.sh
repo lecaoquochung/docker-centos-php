@@ -52,9 +52,11 @@ case $1 in
         (docker-compose restart)
         ;;
     latest)
-        # Update docker & its dependencies to the latest version
-        LATEST_DOCKER="cp -uvrf !(README.md|/var/www/html/docker/docker-centos-php) /var/www/html/docker/"
+        # Update docker-centos-php & its dependencies to the latest version
+        # LATEST_DOCKER="cp -uvrf !(README.md|/var/www/html/docker/docker-centos-php) /var/www/html/docker/"
+        readonly LATEST_DOCKER="rsync -av /var/www/html/docker/docker-centos-php/* /var/www/html/docker/ --exclude=README.md"
         (docker-compose up -d)
+        # (docker-compose run server bin/bash -c "$LATEST_DOCKER")
         (docker-compose run server bin/bash -c "$LATEST_DOCKER")
         ;;
     *)
