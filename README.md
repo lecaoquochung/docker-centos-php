@@ -5,7 +5,7 @@
 ## DEPENDENCIES
 - Centos 6.x
 - PHP 5.6.x
-- MySQL 5.6 (DOCKERCENTOS6PHP_MYSQL_1)
+- MySQL 5.6 (DOCKERCENTOS_MYSQL_1)
 - CakePHP 2x & 3x for db migration
 ```
 # Download composer
@@ -34,7 +34,7 @@ getenv('MYSQL_PASSWORD');
 ```
 
 ## TEST
-- http://localhost/test/
+- http://localhost/docker-centos-test/
 
 ## DB MIGRATION
 - CakePHP is used for db migrations
@@ -53,6 +53,7 @@ Console/cake schema generate -f
 # sammple-project/
 git clone git@github.com:lecaoquochung/docker-centos.git
 rsync -av docker-centos/* ./ --exclude=README.md
+rsync -avz --exclude-from 'exclude.txt' docker-centos/* ./
 ```
 
 - Use below command to start the docker with your project
