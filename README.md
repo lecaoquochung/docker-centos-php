@@ -52,7 +52,7 @@ Console/cake schema generate -f
 ```
 # sammple-project/
 git clone git@github.com:lecaoquochung/docker-centos.git
-rsync -av docker-centos/* ./ --exclude=README.md
+# rsync -av docker-centos/* ./ --exclude=README.md
 rsync -avz --exclude-from 'exclude.txt' docker-centos/* ./
 ```
 

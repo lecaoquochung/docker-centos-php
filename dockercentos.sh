@@ -53,8 +53,8 @@ case $1 in
         ;;
     latest)
         # Update docker-centos-php & its dependencies to the latest version
-        # LATEST_DOCKER="cp -uvrf !(README.md|/var/www/html/docker/docker-centos-php) /var/www/html/docker/"
-        readonly LATEST_DOCKER="rsync -av /var/www/html/docker/docker-centos-php/* /var/www/html/docker/ --exclude=README.md"
+        # rsync -avz --exclude-from 'exclude.txt' docker-centos/* ./
+        readonly LATEST_DOCKER="rsync -avz --exclude-from /var/www/html/docker/docker-centos/exclude.txt  /var/www/html/docker/docker-centos/* /var/www/html/docker/"
         (docker-compose up -d)
         # (docker-compose run server bin/bash -c "$LATEST_DOCKER")
         (docker-compose run server bin/bash -c "$LATEST_DOCKER")
