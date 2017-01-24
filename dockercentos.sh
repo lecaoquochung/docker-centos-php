@@ -53,7 +53,7 @@ case $1 in
         ;;
     latest)
         # Update docker-centos-php & its dependencies to the latest version
-        # rsync -avz --exclude-from 'exclude.txt' docker-centos/* ./
+        # Manual copy: rsync -avz --exclude-from 'docker-centos/exclude.txt' docker-centos/* ./
         readonly LATEST_DOCKER="rsync -avz --exclude-from /var/www/html/docker/docker-centos/exclude.txt  /var/www/html/docker/docker-centos/* /var/www/html/docker/"
         (docker-compose up -d)
         # (docker-compose run server bin/bash -c "$LATEST_DOCKER")
