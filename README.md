@@ -53,7 +53,7 @@ Console/cake schema generate -f
 # sammple-project/
 git clone git@github.com:lecaoquochung/docker-centos.git
 # rsync -av docker-centos/* ./ --exclude=README.md
-rsync -avz --exclude-from 'exclude.txt' docker-centos/* ./
+rsync -avz --exclude-from 'docker-centos/exclude.txt' docker-centos/* ./
 ```
 
 - Use below command to start the docker with your project
