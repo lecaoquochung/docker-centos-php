@@ -12,6 +12,10 @@ server:
         - $PWD:/var/www/html/docker
     environment:
         - PROJECT_HOST_ENV=docker.dev
+        - MYSQL_ROOT_PASSWORD=lecaoquochung
+        - MYSQL_DATABASE=docker
+        - MYSQL_USER=docker
+        - MYSQL_PASSWORD=docker
 
 mysql:
     dockerfile: $PWD/docker/db/Dockerfile

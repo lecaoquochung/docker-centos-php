@@ -29,12 +29,17 @@ RUN yum install --enablerepo=epel,remi-php56,remi -y \
 
 RUN sed -i -e "s|^;date.timezone =.*$|date.timezone = Asia/Tokyo|" /etc/php.ini
 
+# PROJECT
+
 # Default Docker Dev
 COPY httpd.conf /etc/httpd/conf.d/virtual.conf
 # TODO: allow exclude cp !()
 RUN shopt -s extglob
 
-# SSL
+# SSL 
+# Only use this with local Docker
+# Please don't use default private key for production server
+# TODO Config SSL for local Docker
 COPY ssl/ca.crt /etc/pki/tls/certs/ca.crt
 COPY ssl/ca.key /etc/pki/tls/private/ca.key
 RUN chmod 500 /etc/pki/tls/certs/ca.crt
