@@ -36,7 +36,8 @@ case $1 in
         ;;
     ssh)
         # Connect to SSH
-        (docker exec -it dockercentos6php_server_1 bash)
+        readonly PROJECT_NAME=${PWD##*/}
+        (docker exec -it ${PROJECT_NAME}_server_1 bash)
         ;;
     build)
         # Build image in Dockerfile
@@ -51,8 +52,11 @@ case $1 in
         (docker-compose restart)
         ;;
     latest)
-        # Update docker & its dependencies to the latest version
-        LATEST_DOCKER="cp -uvrf /var/www/html/docker/docker-centos6-php/* /var/www/html/docker/"
+        # Update docker-centos-php & its dependencies to the latest version
+        # Manual copy: rsync -avz --exclude-from 'docker-centos/exclude.txt' docker-centos/* ./
+        readonly LATEST_DOCKER="rsync -avz --exclude-from /var/www/html/docker/docker-centos/exclude.txt  /var/www/html/docker/docker-centos/* /var/www/html/docker/"
+        (docker-compose up -d)
+        # (docker-compose run server bin/bash -c "$LATEST_DOCKER")
         (docker-compose run server bin/bash -c "$LATEST_DOCKER")
         ;;
     *)

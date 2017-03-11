@@ -1,8 +1,9 @@
 server:
     dockerfile: $PWD/docker/server/Dockerfile
     build: $PWD/docker/server
+    working_dir: /var/www/html/docker
     links:
-        - mysql
+        - mysql:mysql.local
         - memcached
     ports:
         - "80:80"

@@ -1,0 +1,4 @@
+# Exclude file from this repo to PROJECT
+.git
+README.md
+exclude.txt

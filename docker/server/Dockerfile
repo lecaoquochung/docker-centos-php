@@ -1,8 +1,14 @@
 FROM centos:6
 
-# ENV
-RUN rpm -ivh http://dl.fedoraproject.org/pub/epel/6/i386/epel-release-6-8.noarch.rpm
-RUN rpm -ivh http://rpms.famillecollet.com/enterprise/remi-release-6.rpm
+# EPEL 6
+# https://dl.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm
+# RUN rpm -ivh https://dl.fedoraproject.org/pub/epel/6/i386/epel-release-6-8.noarch.rpm
+RUN rpm -ivh https://dl.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm
+
+# Update PHP version
+# RUN rpm -ivh https://rpms.famillecollet.com/enterprise/remi-release-6.rpm
+
+# Dependencies
 RUN yum update -y
 RUN yum install -y httpd
 RUN yum install --enablerepo=epel,remi-php56,remi -y \
@@ -18,14 +24,17 @@ RUN yum install --enablerepo=epel,remi-php56,remi -y \
                               php-memcached \
                               mysql-server \
                               phpmyadmin \
-                              mod_ssl openssl
-                              
+                              mod_ssl openssl \
+                              rsync
+
 RUN sed -i -e "s|^;date.timezone =.*$|date.timezone = Asia/Tokyo|" /etc/php.ini
 
 # PROJECT
 
 # Default Docker Dev
 COPY httpd.conf /etc/httpd/conf.d/virtual.conf
+# TODO: allow exclude cp !()
+RUN shopt -s extglob
 
 # SSL 
 # Only use this with local Docker
