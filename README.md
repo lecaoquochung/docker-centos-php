@@ -1,3 +1,4 @@
+[![Stories in Ready](https://badge.waffle.io/lecaoquochung/docker-centos.png?label=ready&title=Ready)](https://waffle.io/lecaoquochung/docker-centos)
 # DOCKER CENTOS for LOCAL PROJECT
 - Docker CentOS (DOCKERCENTOS)
 - Github
