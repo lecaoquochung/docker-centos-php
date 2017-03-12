@@ -2,6 +2,8 @@
 
 # project path
 SCRIPT_DIR=`dirname $0`
+readonly PROJECT_NAME=${PWD##*/}
+readonly LATEST_DOCKER_CENTOS="rsync -avz --exclude-from /var/www/html/docker/docker-centos/exclude.txt /var/www/html/docker/docker-centos/* /var/www/html/docker/"
 
 case $1 in
     help|--help)
@@ -36,7 +38,6 @@ case $1 in
         ;;
     ssh)
         # Connect to SSH
-        readonly PROJECT_NAME=${PWD##*/}
         (docker exec -it ${PROJECT_NAME}_server_1 bash)
         ;;
     build)
@@ -54,10 +55,9 @@ case $1 in
     latest)
         # Update docker-centos-php & its dependencies to the latest version
         # Manual copy: rsync -avz --exclude-from 'docker-centos/exclude.txt' docker-centos/* ./
-        readonly LATEST_DOCKER="rsync -avz --exclude-from /var/www/html/docker/docker-centos/exclude.txt  /var/www/html/docker/docker-centos/* /var/www/html/docker/"
         (docker-compose up -d)
         # (docker-compose run server bin/bash -c "$LATEST_DOCKER")
-        (docker-compose run server bin/bash -c "$LATEST_DOCKER")
+        (docker exec -it ${PROJECT_NAME}_server_1 bash -c "$LATEST_DOCKER")
         ;;
     *)
         echo "unknown command"
