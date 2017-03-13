@@ -57,7 +57,7 @@ case $1 in
         # Manual copy: rsync -avz --exclude-from 'docker-centos/exclude.txt' docker-centos/* ./
         (docker-compose up -d)
         # (docker-compose run server bin/bash -c "$LATEST_DOCKER")
-        (docker exec -it ${PROJECT_NAME}_server_1 bash -c "$LATEST_DOCKER")
+        (docker exec -it ${PROJECT_NAME}_server_1 bash -c "$LATEST_DOCKER_CENTOS")
         ;;
     *)
         echo "unknown command"
