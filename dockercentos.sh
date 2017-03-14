@@ -4,11 +4,12 @@
 SCRIPT_DIR=`dirname $0`
 readonly PROJECT_NAME=${PWD##*/}
 readonly LATEST_DOCKER_CENTOS="rsync -avz --exclude-from /var/www/html/docker/docker-centos/exclude.txt /var/www/html/docker/docker-centos/* /var/www/html/docker/"
+readonly CAKE2X_DC="rsync -avz /var/www/html/docker/docker-centos/php/cake2x/* /var/www/html/docker/"
 
 case $1 in
     help|--help)
         echo "
-            Usage: ./docker.sh [up|down] \n\n \
+            Usage: ./dockercentos.sh [up|down] \n\n \
             ps      - List containers \n \
             up      - Starts the services in the background \n \
             down    - Stops the services, removes the containers \n \
@@ -17,7 +18,8 @@ case $1 in
             build   - Docker compose build \n \
             log     - Check service logs \n \
             restart - Restart services \n \
-            latest  - Update docker and its dependencies \n
+            latest  - Update docker and its dependencies \n \
+            cake2x  - Update docker and its dependencies \n
         "
         ;;
     ps)
@@ -53,15 +55,15 @@ case $1 in
         (docker-compose restart)
         ;;
     latest)
-        # Update docker-centos-php & its dependencies to the latest version
-        # Manual copy: rsync -avz --exclude-from 'docker-centos/exclude.txt' docker-centos/* ./
-        (docker-compose up -d)
         # (docker-compose run server bin/bash -c "$LATEST_DOCKER")
         (docker exec -it ${PROJECT_NAME}_server_1 bash -c "$LATEST_DOCKER_CENTOS")
         ;;
+    cake2x)
+        (docker exec -it ${PROJECT_NAME}_server_1 bash -c "$CAKE2X_DC")
+        ;;
     *)
-        echo "unknown command"
-        echo "Usage:"
-        echo "./docker.sh [ps|up|down|db|ssh|build|log|restart|latest]"
+        echo "Unknown parameter"
+        echo "Param:"
+        echo "./dockercentos.sh [ps|up|down|db|ssh|build|log|restart|latest|cake2x]"
         ;;
 esac

@@ -1,0 +1,7 @@
+Config/acl.php
+Config/bootstrap.php
+Config/core.php
+Config/database.php
+Config/routes.php
+Controller/AppController.php
+View/Layouts/default.ctp
