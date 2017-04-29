@@ -3,9 +3,7 @@
 - Docker CentOS (DOCKERCENTOS)
 
 ## DEPENDENCIES
-- Centos 6.x
-- PHP 5.6.x
-- MySQL 5.6 (DOCKERCENTOS_MYSQL_1)
+- git, docker, docker-compose
 
 ## INIT
 - Clone this repo inside any project that need docker centos as local development
@@ -30,14 +28,22 @@ Path: your-project/docker/db/init.d/
 ./dockercentos.sh up
 ```
 
-- Update and stop it
+- Useful CLI
 ```
 ./dockercentos.sh latest // Update latest version of this repo
 ./dockercentos.sh down
 ```
 
 ## TEST
-- Running test http://localhost/docker-centos-test/
+- Apache2 test page http://localhost
+- PHPINFO http://localhost/test
+```
+# /etc/hosts
+127.0.0.1 dockercentos.dev public.dockercentos.dev
+```
+- http://dockercentos.dev
+- http://public.dockercentos.dev
+
 - PHP Project
 ```
 - PHP MySQLi connect http://localhost/php/mysql/mysqli.php
@@ -60,7 +66,12 @@ MYSQL_PASSWORD
 
 ## CONTRIBUTE & QUESTION
 - Make PR to this repo
-- Email me if you have any question lecaoquochung@gmail.com
+- Email me if you have any question me@lehungio.com
+
+## VERSION
+- 1.x.x: docker-compose
+- x.1.x: os (centos 6)
+- x.x.1: dependencies, programming languages (nodejs, php, mysql, v.v...)
 
 ## REFERENCE
 - Docker CentOS https://docs.docker.com/engine/installation/linux/centos/
