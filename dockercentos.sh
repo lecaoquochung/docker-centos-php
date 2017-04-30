@@ -36,7 +36,7 @@ case $1 in
         ;;
     db)
         # Open mysql
-        (mysql -u docker -pdocker -Ddocker -h 127.0.0.1)
+        (mysql -u dockercentos -pdockercentos -Ddockercentos -h 127.0.0.1)
         ;;
     ssh)
         # Connect to SSH
