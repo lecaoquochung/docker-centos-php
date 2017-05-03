@@ -10,6 +10,7 @@ server:
         - "3000:3000"
     volumes:
         - $PWD:/var/www/html/dockercentos
+        - dockercentos-server:/var/www/html
     environment:
         - PROJECT_HOST_ENV=dockercentos.dev
         - MYSQL_DATABASE=dockercentos
@@ -30,8 +31,10 @@ mysql:
         - MYSQL_ROOT_PASSWORD=dockercentos
     volumes:
         - $PWD/docker/db/init.d:/docker-entrypoint-initdb.d
-        - $PWD/app/Config/Schema:/schema
+        - dockercentos-mysql:/var/lib/mysql
     mem_limit: 1000000000
 
 memcached:
   image: memcached
+  volumes:
+    - dockercentos-memcached:/etc/sysconfig/memcached
