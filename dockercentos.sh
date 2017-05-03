@@ -33,6 +33,9 @@ case $1 in
     down|stop|remove)
         # Stops the services, removes the containers
         (docker-compose down)
+        (docker volume rm dockercentos-server)
+        (docker volume rm dockercentos-mysql)
+        (docker volume rm dockercentos-memcached)
         ;;
     db)
         # Open mysql
