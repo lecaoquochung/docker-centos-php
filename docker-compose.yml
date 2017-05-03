@@ -16,6 +16,7 @@ server:
         - MYSQL_USER=dockercentos
         - MYSQL_PASSWORD=dockercentos
         - MYSQL_ROOT_PASSWORD=dockercentos
+        - MYSQL_HOST=mysql.local
 
 mysql:
     dockerfile: $PWD/docker/db/Dockerfile
