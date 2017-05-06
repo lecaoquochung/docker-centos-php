@@ -3,8 +3,11 @@
 # project path
 SCRIPT_DIR=`dirname $0`
 readonly PROJECT_NAME=${PWD##*/}
-readonly LATEST_DOCKER_CENTOS="rsync -avz --exclude-from /var/www/html/docker/docker-centos/exclude.txt /var/www/html/docker/docker-centos/* /var/www/html/docker/"
+readonly PROJECT_NAME_STRIP=${PROJECT_NAME//[-._]/}
+readonly DOCKERCENTOS_PATH="/var/www/html/dockercentos"
 readonly CAKE2X_DC="rsync -avz /var/www/html/docker/docker-centos/php/cake2x/* /var/www/html/docker/"
+readonly GITIGNORE_FROM_LINE="1"
+readonly GITIGNORE_TO_LINE="8"
 
 case $1 in
     help|--help)
@@ -23,15 +26,15 @@ case $1 in
         "
         ;;
     ps)
-            # Starts the docker machine and backgroud services
+        # Start the docker machine and backgroud services
         (docker-compose ps)
         ;;
     up|start)
-        # Starts the docker machine and backgroud services
+        # Start the docker machine and backgroud services
         (docker-compose up -d)
         ;;
     down|stop|remove)
-        # Stops the services, removes the containers
+        # Stop the services, removes the containers
         (docker-compose down)
         (docker volume rm dockercentos-server)
         (docker volume rm dockercentos-mysql)
@@ -43,7 +46,7 @@ case $1 in
         ;;
     ssh)
         # Connect to SSH
-        (docker exec -it ${PROJECT_NAME}_server_1 bash)
+        (docker exec -it ${PROJECT_NAME_STRIP}_server_1 bash)
         ;;
     build)
         # Build image in Dockerfile
@@ -59,7 +62,22 @@ case $1 in
         ;;
     latest)
         # (docker-compose run server bin/bash -c "$LATEST_DOCKER")
-        (docker exec -it ${PROJECT_NAME}_server_1 bash -c "$LATEST_DOCKER_CENTOS")
+        readonly LATEST_DOCKER_CENTOS="rsync -avz --exclude-from ${DOCKERCENTOS_PATH}/docker-centos/exclude.txt ${DOCKERCENTOS_PATH}/docker-centos/* ${PATH}/"
+        (docker exec -it ${PROJECT_NAME_STRIP}_server_1 bash -c "$LATEST_DOCKER_CENTOS")
+        
+        # update project .gitignore (no tracking docker-centos source)
+        # Step 01: Update gitignore.txt to project .gitignore
+        readonly UPDATE_PROJECT_GITIGNORE="sed -i -e "$aTEXTTOEND"r<(sed '1,${GITIGNORE_TO_LINE}!d' ${DOCKERCENTOS_PATH}/docker-centos/gitignore.txt) ${DOCKERCENTOS_PATH}/.gitignore"
+        (docker exec -it ${PROJECT_NAME_STRIP}_server_1 bash -c "$UPDATE_PROJECT_GITIGNORE")
+
+        # Step 02: Delete duplicate line in project .gitignore (new file)
+        # awk '!seen[$0]++' .gitignore > .gitignore
+        readonly DELETE_DUPLICATE="awk '!seen[$0]++' ${DOCKERCENTOS_PATH}/.gitignore > ${DOCKERCENTOS_PATH}/.gitignore"
+        (docker exec -it ${PROJECT_NAME_STRIP}_server_1 bash -c "$DELETE_DUPLICATE")
+
+        # Step 3: new project .gitignore with gitignore.txt content
+        readonly SYNC_GITIGNORE="rsync -avz ${PATH}/.gitignore-a ${DOCKERCENTOS_PATH}/.gitignore"
+        (docker exec -it ${PROJECT_NAME_STRIP}_server_1 bash -c "$SYNC_GITIGNORE")
         ;;
     cake2x)
         (docker exec -it ${PROJECT_NAME}_server_1 bash -c "$CAKE2X_DC")
