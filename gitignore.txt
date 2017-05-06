@@ -1,0 +1,8 @@
+docker
+php
+public
+test
+docker-compose.yml
+dockercentos.sh
+.gitignore-n
+.gitignore-a

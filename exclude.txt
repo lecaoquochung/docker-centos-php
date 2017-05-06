@@ -1,4 +1,7 @@
 # Exclude file from this repo to PROJECT
 .git
+.gitignore
 README.md
 exclude.txt
+LICENSE
+gitignore.txt
