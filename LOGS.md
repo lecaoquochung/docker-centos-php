@@ -43,3 +43,10 @@ ${PWD##*/}
 string=${PWD##*/}
 string_strip=${string//[-._]/}
 ```
+
+- rsync
+```
+# DOCKERCENTOS_PATH /var/www/html/dockercentos
+rsync -avz --exclude-from /var/www/html/dockercentos/docker-centos/exclude.txt /var/www/html/dockercentos/docker-centos/* /var/www/html/dockercentos/
+sed -i -e "$aTEXTTOEND"r<(sed '1,8!d' /var/www/html/dockercentos/docker-centos/gitignore.txt) /var/www/html/dockercentos/.gitignore
+```

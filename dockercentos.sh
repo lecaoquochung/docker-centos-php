@@ -8,6 +8,8 @@ readonly DOCKERCENTOS_PATH="/var/www/html/dockercentos"
 readonly CAKE2X_DC="rsync -avz /var/www/html/docker/docker-centos/php/cake2x/* /var/www/html/docker/"
 readonly GITIGNORE_FROM_LINE="1"
 readonly GITIGNORE_TO_LINE="8"
+readonly GITIGNORE_FILE="${DOCKERCENTOS_PATH}/.gitignore"
+readonly GITIFNORE_FILE_TEXT="# Automatically created by ./dockercentos.sh latest"
 
 case $1 in
     help|--help)
@@ -62,10 +64,23 @@ case $1 in
         ;;
     latest)
         # (docker-compose run server bin/bash -c "$LATEST_DOCKER")
-        readonly LATEST_DOCKER_CENTOS="rsync -avz --exclude-from ${DOCKERCENTOS_PATH}/docker-centos/exclude.txt ${DOCKERCENTOS_PATH}/docker-centos/* ${PATH}/"
+        readonly LATEST_DOCKER_CENTOS="rsync -avz --exclude-from ${DOCKERCENTOS_PATH}/docker-centos/exclude.txt ${DOCKERCENTOS_PATH}/docker-centos/* ${DOCKERCENTOS_PATH}/"
+        (docker exec -it ${PROJECT_NAME_STRIP}_server_1 bash -c "echo $DOCKERCENTOS_PATH")
+        (docker exec -it ${PROJECT_NAME_STRIP}_server_1 bash -c "echo $GITIGNORE_FILE")
         (docker exec -it ${PROJECT_NAME_STRIP}_server_1 bash -c "$LATEST_DOCKER_CENTOS")
         
         # update project .gitignore (no tracking docker-centos source)
+        # TODO check gitignore file existed
+        if [ -f "$GITIGNORE_FILE" ]
+        then
+            echo "$GITIGNORE_FILE existed."
+            readonly UPDATE_GITIGNORE_FILE="echo ${GITIFNORE_FILE_TEXT} >> ${GITIGNORE_FILE}"
+        else
+            readonly UPDATE_GITIGNORE_FILE="echo ${GITIFNORE_FILE_TEXT} > ${GITIGNORE_FILE}"
+        fi
+
+        (docker exec -it ${PROJECT_NAME_STRIP}_server_1 bash -c "$UPDATE_GITIGNORE_FILE")
+
         # Step 01: Update gitignore.txt to project .gitignore
         readonly UPDATE_PROJECT_GITIGNORE="sed -i -e "$aTEXTTOEND"r<(sed '1,${GITIGNORE_TO_LINE}!d' ${DOCKERCENTOS_PATH}/docker-centos/gitignore.txt) ${DOCKERCENTOS_PATH}/.gitignore"
         (docker exec -it ${PROJECT_NAME_STRIP}_server_1 bash -c "$UPDATE_PROJECT_GITIGNORE")
@@ -73,10 +88,10 @@ case $1 in
         # Step 02: Delete duplicate line in project .gitignore (new file)
         # awk '!seen[$0]++' .gitignore > .gitignore
         readonly DELETE_DUPLICATE="awk '!seen[$0]++' ${DOCKERCENTOS_PATH}/.gitignore > ${DOCKERCENTOS_PATH}/.gitignore"
-        (docker exec -it ${PROJECT_NAME_STRIP}_server_1 bash -c "$DELETE_DUPLICATE")
+        (docker exec -it ${PROJECT_NAME_STRIP}_1 bash -c "$DELETE_DUPLICATE")
 
         # Step 3: new project .gitignore with gitignore.txt content
-        readonly SYNC_GITIGNORE="rsync -avz ${PATH}/.gitignore-a ${DOCKERCENTOS_PATH}/.gitignore"
+        readonly SYNC_GITIGNORE="rsync -avz ${DOCKERCENTOS_PATH}/.gitignore-a ${DOCKERCENTOS_PATH}/.gitignore"
         (docker exec -it ${PROJECT_NAME_STRIP}_server_1 bash -c "$SYNC_GITIGNORE")
         ;;
     cake2x)
