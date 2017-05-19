@@ -20,6 +20,10 @@ rsync -avz --exclude-from 'docker-centos/exclude.txt' docker-centos/* ./
 ```
 Path: your-project/docker/db/init.d/
 ```
+- Update your project .gitignore with file gitignore.txt
+```
+TODO helper CLI for automatically copy
+```
 
 ## GET STARTED
 - Init Docker Centos
