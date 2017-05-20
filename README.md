@@ -20,6 +20,10 @@ rsync -avz --exclude-from 'docker-centos/exclude.txt' docker-centos/* ./
 ```
 Path: your-project/docker/db/init.d/
 ```
+- Update your project .gitignore with file gitignore.txt
+```
+TODO helper CLI for automatically copy
+```
 
 ## GET STARTED
 - Init Docker Centos
@@ -65,7 +69,8 @@ MYSQL_PASSWORD
 ```
 
 ## CONTRIBUTE & QUESTION
-- Make PR to this repo
+- Create some issue [here](https://github.com/lecaoquochung/docker-centos/issues))
+- Make pull request for issue by branch name matching with issue number (Ex: branch name for PR issue-xx)
 - Email me if you have any question me@lehungio.com
 
 ## VERSION
