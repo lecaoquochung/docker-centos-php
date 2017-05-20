@@ -113,6 +113,7 @@ case $1 in
         (docker exec -it ${PROJECT_NAME_STRIP}_server_1 bash -c "$AUTO_COMMIT")
 
         # step 3: pull request
+        # TODO config file for github auth or public key
         readonly AUTO_PUSH="cd ${DOCKERCENTOS_PATH}/docker-centos; git push origin master:autopush-$(date +%s)"
         (docker exec -it ${PROJECT_NAME_STRIP}_server_1 bash -c "$AUTO_PUSH")
 
