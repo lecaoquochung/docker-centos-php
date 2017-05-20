@@ -11,6 +11,7 @@ readonly GITIGNORE_TO_LINE="8"
 readonly GITIGNORE_FILE="${DOCKERCENTOS_PATH}/.gitignore"
 readonly GITIGNORE_FILE_TEXT="# Automatically created by ./dockercentos.sh latest"
 readonly REPO="https://github.com/lecaoquochung/docker-centos"
+readonly TIMESTAMP="date +%s"
 
 case $1 in
     help|--help)
@@ -108,7 +109,7 @@ case $1 in
         (docker exec -it ${PROJECT_NAME_STRIP}_server_1 bash -c "$REVERSE_SYNC")
 
         # step 2: commit
-        readonly AUTO_COMMIT="cd ${DOCKERCENTOS_PATH}/docker-centos; git commit  -a -m 'Auto-commit'"
+        readonly AUTO_COMMIT="cd ${DOCKERCENTOS_PATH}/docker-centos; git commit  -a -m 'Autocommit-$(date +%s)'"
         (docker exec -it ${PROJECT_NAME_STRIP}_server_1 bash -c "$AUTO_COMMIT")
 
         # step 3: pull request
