@@ -1,6 +1,6 @@
-docker
-php
-public
-test
+docker/*
+php/*
+public/dockercentos.html
+test/*
 docker-compose.yml
 dockercentos.sh
