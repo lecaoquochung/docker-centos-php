@@ -5,3 +5,5 @@ README.md
 exclude.txt
 LICENSE
 gitignore.txt
+LOGS.md
+commit.txt

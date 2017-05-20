@@ -24,6 +24,7 @@ case $1 in
             log     - Check service logs \n \
             restart - Restart services \n \
             latest  - Update docker and its dependencies \n \
+            commmit - Commit a PR to docker-centos \n \
             cake2x  - Update docker and its dependencies \n
         "
         ;;
@@ -99,12 +100,21 @@ case $1 in
         # readonly SYNC_GITIGNORE="rsync -avz ${DOCKERCENTOS_PATH}/gitignore.tmp ${DOCKERCENTOS_PATH}/.gitignore"
         # (docker exec -it ${PROJECT_NAME_STRIP}_server_1 bash -c "$SYNC_GITIGNORE")
         ;;
+    commit)
+        # Reverse commit to docker-centos
+        # step 01 reverse sync file & dir
+        readonly REVERSE_SYNC="rsync -avz --include-from ${DOCKERCENTOS_PATH}/docker-centos/commit.txt ${DOCKERCENTOS_PATH}/* ${DOCKERCENTOS_PATH}/docker-centos/"
+        (docker exec -it ${PROJECT_NAME_STRIP}_server_1 bash -c "$REVERSE_SYNC")
+
+        # step 2: 
+
+        ;;
     cake2x)
         (docker exec -it ${PROJECT_NAME}_server_1 bash -c "$CAKE2X_DC")
         ;;
     *)
         echo "Unknown parameter"
         echo "Param:"
-        echo "./dockercentos.sh [ps|up|down|db|ssh|build|log|restart|latest|cake2x]"
+        echo "./dockercentos.sh [ps|up|down|db|ssh|build|log|restart|latest|commit|cake2x]"
         ;;
 esac
