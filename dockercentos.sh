@@ -10,6 +10,8 @@ readonly GITIGNORE_FROM_LINE="1"
 readonly GITIGNORE_TO_LINE="8"
 readonly GITIGNORE_FILE="${DOCKERCENTOS_PATH}/.gitignore"
 readonly GITIGNORE_FILE_TEXT="# Automatically created by ./dockercentos.sh latest"
+readonly REPO="https://github.com/lecaoquochung/docker-centos"
+readonly TIMESTAMP="date +%s"
 
 case $1 in
     help|--help)
@@ -24,6 +26,7 @@ case $1 in
             log     - Check service logs \n \
             restart - Restart services \n \
             latest  - Update docker and its dependencies \n \
+            commmit - Commit a PR to docker-centos \n \
             cake2x  - Update docker and its dependencies \n
         "
         ;;
@@ -99,12 +102,28 @@ case $1 in
         # readonly SYNC_GITIGNORE="rsync -avz ${DOCKERCENTOS_PATH}/gitignore.tmp ${DOCKERCENTOS_PATH}/.gitignore"
         # (docker exec -it ${PROJECT_NAME_STRIP}_server_1 bash -c "$SYNC_GITIGNORE")
         ;;
+    commit)
+        # Reverse commit to docker-centos
+        # step 01 reverse sync file & dir
+        readonly REVERSE_SYNC="rsync -ruvv --include-from=${DOCKERCENTOS_PATH}/docker-centos/commit.txt ${DOCKERCENTOS_PATH}/* ${DOCKERCENTOS_PATH}/docker-centos/"
+        (docker exec -it ${PROJECT_NAME_STRIP}_server_1 bash -c "$REVERSE_SYNC")
+
+        # step 2: commit
+        readonly AUTO_COMMIT="cd ${DOCKERCENTOS_PATH}/docker-centos; git commit  -a -m 'Autocommit-$(date +%s)'"
+        (docker exec -it ${PROJECT_NAME_STRIP}_server_1 bash -c "$AUTO_COMMIT")
+
+        # step 3: pull request
+        # TODO config file for github auth or public key 
+        # readonly AUTO_PUSH="cd ${DOCKERCENTOS_PATH}/docker-centos; git push origin master:autopush-$(date +%s)"
+        # (docker exec -it ${PROJECT_NAME_STRIP}_server_1 bash -c "$AUTO_PUSH")
+
+        ;;
     cake2x)
         (docker exec -it ${PROJECT_NAME}_server_1 bash -c "$CAKE2X_DC")
         ;;
     *)
         echo "Unknown parameter"
         echo "Param:"
-        echo "./dockercentos.sh [ps|up|down|db|ssh|build|log|restart|latest|cake2x]"
+        echo "./dockercentos.sh [ps|up|down|db|ssh|build|log|restart|latest|commit|cake2x]"
         ;;
 esac
