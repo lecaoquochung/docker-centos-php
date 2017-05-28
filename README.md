@@ -1,6 +1,6 @@
 [![Stories in Ready](https://badge.waffle.io/lecaoquochung/docker-centos.png?label=ready&title=Ready)](https://waffle.io/lecaoquochung/docker-centos)
-# DOCKER CENTOS for PROJECT DEVELOPMENT
-- Docker CentOS (DOCKERCENTOS)
+# CENTOS ENVIRONMENT for PROJECT DEVELOPMENT
+- CentOS (DOCKERCENTOS)
 
 ## DEPENDENCIES
 - git, docker, docker-compose
@@ -9,14 +9,15 @@
 - Clone this repo inside any project that need docker centos as local development
 ```
 # path: cd your-project
-git clone git@github.com:lecaoquochung/docker-centos.git
+git clone git@github.com:lecaoquochung/liho-cent.git
 ```
 - Run this command for sync docker-centos to your project path
 ```
 # rsync help (?)
-rsync -avz --exclude-from 'docker-centos/exclude.txt' docker-centos/* ./
+rsync -avz --exclude-from 'liho-cent/exclude.txt' liho-cent/* ./
 ```
 - Init database: Put your project database as sql in path below (it will be automatically bootstrapped)
+TODO testcase for init *.sql file  
 ```
 Path: your-project/docker/db/init.d/
 ```
@@ -26,16 +27,16 @@ TODO helper CLI for automatically copy
 ```
 
 ## GET STARTED
-- Init Docker Centos
+- Init Docker
 ```
-./dockercentos.sh build
-./dockercentos.sh up
+./help.sh build
+./help.sh up
 ```
 
 - Useful CLI
 ```
-./dockercentos.sh latest // Update latest version of this repo
-./dockercentos.sh down
+./help.sh latest // Update latest version of this repo
+./help.sh down
 ```
 
 ## TEST
@@ -43,10 +44,10 @@ TODO helper CLI for automatically copy
 - PHPINFO http://localhost/test
 ```
 # /etc/hosts
-127.0.0.1 dockercentos.dev public.dockercentos.dev
+127.0.0.1 lihocent.dev public.lihocent.dev
 ```
-- http://dockercentos.dev
-- http://public.dockercentos.dev
+- http://lihocent.dev
+- http://public.lihocent.dev
 
 - PHP Project
 ```

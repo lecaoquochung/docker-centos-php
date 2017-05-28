@@ -1,7 +1,7 @@
 server:
     dockerfile: $PWD/docker/server/Dockerfile
     build: $PWD/docker/server
-    working_dir: /var/www/html/dockercentos
+    working_dir: /var/www/html/lihocent
     links:
         - mysql:mysql.local
         - memcached
@@ -9,14 +9,14 @@ server:
         - "80:80"
         - "3000:3000"
     volumes:
-        - $PWD:/var/www/html/dockercentos
-        - dockercentos-server:/var/www/html
+        - $PWD:/var/www/html/lihocent
+        - lihocent-server:/var/www/html
     environment:
-        - PROJECT_HOST_ENV=dockercentos.dev
-        - MYSQL_DATABASE=dockercentos
-        - MYSQL_USER=dockercentos
-        - MYSQL_PASSWORD=dockercentos
-        - MYSQL_ROOT_PASSWORD=dockercentos
+        - PROJECT_HOST_ENV=lihocent.dev
+        - MYSQL_DATABASE=lihocent
+        - MYSQL_USER=lihocent
+        - MYSQL_PASSWORD=lihocent
+        - MYSQL_ROOT_PASSWORD=lihocent
         - MYSQL_HOST=mysql.local
 
 mysql:
@@ -25,16 +25,16 @@ mysql:
     ports:
         - "3306:3306"
     environment:
-        - MYSQL_DATABASE=dockercentos
-        - MYSQL_USER=dockercentos
-        - MYSQL_PASSWORD=dockercentos
-        - MYSQL_ROOT_PASSWORD=dockercentos
+        - MYSQL_DATABASE=lihocent
+        - MYSQL_USER=lihocent
+        - MYSQL_PASSWORD=lihocent
+        - MYSQL_ROOT_PASSWORD=lihocent
     volumes:
         - $PWD/docker/db/init.d:/docker-entrypoint-initdb.d
-        - dockercentos-mysql:/var/lib/mysql
+        - lihocent-mysql:/var/lib/mysql
     mem_limit: 1000000000
 
 memcached:
   image: memcached
   volumes:
-    - dockercentos-memcached:/etc/sysconfig/memcached
+    - lihocent-memcached:/etc/sysconfig/memcached
