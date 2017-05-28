@@ -1,10 +1,10 @@
 docker
-docker-centos
+liho-cent
 php
 public
 test
 docker-compose.yml
-dockercentos.sh
+help.sh
 .gitignore-n
 .gitignore-a
 gitignore.tmp
