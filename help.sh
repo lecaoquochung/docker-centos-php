@@ -2,6 +2,7 @@
 
 # project path
 SCRIPT_DIR=`dirname $0`
+readonly BRAND="lihocent"
 readonly PROJECT_NAME=${PWD##*/}
 readonly PROJECT_NAME_STRIP=${PROJECT_NAME//[-._]/}
 readonly DOCKERCENTOS_PATH="/var/www/html/lihocent"
@@ -51,7 +52,7 @@ case $1 in
         ;;
     db)
         # Open mysql
-        (mysql -u ${PROJECT_NAME_STRIP} -p${PROJECT_NAME_STRIP} -D${PROJECT_NAME_STRIP} -h 127.0.0.1)
+        (mysql -u ${BRAND} -p${BRAND} -D${BRAND} -h 127.0.0.1)
 
         ;;
     ssh)
