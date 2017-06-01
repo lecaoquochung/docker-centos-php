@@ -65,9 +65,6 @@ MYSQL_PASSWORD
 ```
 
 ## SUPPORT FRAMEWORK
-- CakePHP 2
-```
-```
 
 ## CONTRIBUTE & QUESTION
 - Create some issue [here](https://github.com/lecaoquochung/docker-centos/issues))

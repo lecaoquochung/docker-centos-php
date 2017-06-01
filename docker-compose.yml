@@ -30,6 +30,7 @@ mysql:
         - MYSQL_PASSWORD=lihocent
         - MYSQL_ROOT_PASSWORD=lihocent
     volumes:
+        - ".:/var/www/html/lihocent"
         - $PWD/docker/db/init.d:/docker-entrypoint-initdb.d
         - lihocent-mysql:/var/lib/mysql
     mem_limit: 1000000000
