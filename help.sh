@@ -79,7 +79,7 @@ case $1 in
         ;;
     latest)
         # (docker-compose run server bin/bash -c "$LATEST_DOCKER")
-        readonly LATEST_DOCKER_CENTOS="rsync -avz --exclude-from ${LIHOCENT_PATH}/${PROJECT_NAME}/exclude.txt ${LIHOCENT_PATH}/${PROJECT_NAME}/* ${LIHOCENT_PATH}/"
+        readonly LATEST_DOCKER_CENTOS="rsync -avz --exclude-from ${LIHOCENT_PATH}/liho-cent/exclude.txt ${LIHOCENT_PATH}/${PROJECT_NAME}/* ${LIHOCENT_PATH}/"
         (docker exec -it ${PROJECT_NAME_STRIP}_server_1 bash -c "$LATEST_DOCKER_CENTOS")
         
         # TODO issue-12
