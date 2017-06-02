@@ -79,9 +79,9 @@ case $1 in
         ;;
     latest)
         # (docker-compose run server bin/bash -c "$LATEST_DOCKER")
-        readonly LATEST_DOCKER_CENTOS="rsync -avz --exclude-from ${LIHOCENT_PATH}/liho-cent/exclude.txt ${LIHOCENT_PATH}/${PROJECT_NAME}/* ${LIHOCENT_PATH}/"
+        readonly LATEST_DOCKER_CENTOS="rsync -avz --exclude-from ${LIHOCENT_PATH}/liho-cent/exclude.txt ${LIHOCENT_PATH}/liho-cent/* ${LIHOCENT_PATH}/"
         (docker exec -it ${PROJECT_NAME_STRIP}_server_1 bash -c "$LATEST_DOCKER_CENTOS")
-        
+
         # TODO issue-12
         # Step 01: update project .gitignore (no tracking docker-centos source)
         # check gitignore file existed
@@ -96,7 +96,7 @@ case $1 in
         #fi
 
         #(docker exec -it ${PROJECT_NAME_STRIP}_server_1 bash -c "$UPDATE_GITIGNORE_FILE")
-        
+
         # Step 02: Update gitignore.txt to project .gitignore
         # TODO check CLI in detail UPDATE_PROJECT_GITIGNORE
         # readonly UPDATE_PROJECT_GITIGNORE="sed -i -e "$aTEXTTOEND"r<(sed '1,${GITIGNORE_TO_LINE}!d' ${LIHOCENT_PATH}/docker-centos/gitignore.txt) ${LIHOCENT_PATH}/.gitignore"
@@ -105,7 +105,7 @@ case $1 in
         # Step 03: Delete duplicate line in project .gitignore (new file)
         # TODO check CLI in detail DELETE_DUPLICATE
         # readonly DELETE_DUPLICATE="awk '!seen[$1]++' /var/www/html/dockercentos/.gitignore > /var/www/html/dockercentos/gitignore.tmp"
-        # readonly DELETE_DUPLICATE="awk '!seen[$1]++' ${LIHOCENT_PATH}/.gitignore > ${LIHOCENT_PATH}/gitignore.tmp" 
+        # readonly DELETE_DUPLICATE="awk '!seen[$1]++' ${LIHOCENT_PATH}/.gitignore > ${LIHOCENT_PATH}/gitignore.tmp"
         # TODO can not get duplicate line in .gitignore with DELETE_DUPLICATE through helper
         # it works with CLI in docker ssh
         # (docker exec -it ${PROJECT_NAME_STRIP}_server_1 bash -c "$DELETE_DUPLICATE")
@@ -126,7 +126,7 @@ case $1 in
         (docker exec -it ${PROJECT_NAME_STRIP}_server_1 bash -c "$AUTO_COMMIT")
 
         # step 3: pull request
-        # TODO config file for github auth or public key 
+        # TODO config file for github auth or public key
         # readonly AUTO_PUSH="cd ${LIHOCENT_PATH}/docker-centos; git push origin master:autopush-$(date +%s)"
         # (docker exec -it ${PROJECT_NAME_STRIP}_server_1 bash -c "$AUTO_PUSH")
 
@@ -136,7 +136,7 @@ case $1 in
 
         ;;
     dump)
-        # dump database to sql file in  sql/lihocent.sql 
+        # dump database to sql file in  sql/lihocent.sql
         readonly DUMP_DB="mysqldump -u${BRAND} -p${BRAND} -h${LOCALHOST} ${BRAND} > ${LIHOCENT_PATH}/sql/${BRAND}.sql"
         (docker-compose exec mysql /bin/bash -c "$DUMP_DB")
         ;;
@@ -148,6 +148,6 @@ case $1 in
         echo "Unknown parameter"
         echo "Param:"
         echo "./dockercentos.sh [ps|up|down|db|ssh|build|log|restart|latest|commit|dump|restore]"
-        
+
         ;;
 esac
